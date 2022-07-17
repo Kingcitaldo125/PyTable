@@ -25,18 +25,10 @@ class HashTable():
 		return None
 
 	def _resize(self):
-		new_size = self.size*2
-		container = [[] for i in range(new_size)]
-		
-		for itm in self.container:
-			for i in itm:
-				key = i[0]
-				val = i[1]
-				hsh = self.hash_function(key, new_size)
-				container[hsh].append([key, val])
-
-		self.container = container
-		self.size = new_size
+		ns = self.size//2
+		for i in range(ns):
+			self.container.append([])
+			self.size += 1
 
 	def insert(self, key, val):
 		if key in self.keys:
@@ -54,7 +46,7 @@ class HashTable():
 			print("Load factor hit. Resizing...")
 			self._resize()
 
-htable = HashTable(6)
+htable = HashTable(12)
 
 htable.insert('Paul', 27)
 htable.insert('Jim', 45)
@@ -72,10 +64,10 @@ print("htable.container", htable.container)
 #'''
 get=lambda x: htable.get_item(x)
 
-print(get('Paul'))
-print(get('Jim'))
-print(get('Dave'))
-print(get('Harry'))
-print(get('Fred'))
-print(get(123))
+print('Paul', get('Paul'))
+print('Jim', get('Jim'))
+print('Dave', get('Dave'))
+print('Harry', get('Harry'))
+print('Fred', get('Fred'))
+print('123', get(123))
 #'''
